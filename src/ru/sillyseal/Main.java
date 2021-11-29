@@ -7,7 +7,6 @@ import java.util.*;
 public class Main {
     static final String pathToFile = "C:/Users/micke/Desktop/nbki_testtask/toSort.csv";
     static final String pathToOutput1 = "C:/Users/micke/Desktop/nbki_testtask/output1.csv";
-    static final String pathToOutput2 = "C:/Users/micke/Desktop/nbki_testtask/output2.csv";
 
     public static void main(String[] args) {
         //Задание 1
@@ -29,8 +28,6 @@ public class Main {
         //Задание 4
         System.out.println("\nЗадание 4:");
         sortCsvFull(pathToFile,pathToOutput1);
-        sortCsvByLine(pathToFile,pathToOutput2);
-        //System.out.println(Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory());
     }
 
     //Задание 1
@@ -135,47 +132,4 @@ public class Main {
             e.printStackTrace();
         }
     }
-
-    public static void sortCsvByLine(String src, String dst){
-        FileInputStream inputStream = null;
-        Scanner sc = null;
-        AVLTree tree = new AVLTree();
-        try {
-            try {
-                inputStream = new FileInputStream(src);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-            sc = new Scanner(inputStream, StandardCharsets.UTF_8);
-            String columns = sc.nextLine();
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                //System.out.println(line);
-                tree.root = tree.insert(tree.root,Integer.parseInt(line.split(";")[0]));
-            }
-            if (sc.ioException() != null) {
-                try {
-                    throw sc.ioException();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (sc != null) {
-                sc.close();
-            }
-        }
-        System.out.println("Preorder traversal" +
-                " of constructed tree is : ");
-        tree.preOrder(tree.root);
-        System.out.println(tree.root.key);
-    }
-
 }
